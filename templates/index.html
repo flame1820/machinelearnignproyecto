@@ -2,104 +2,33 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Predicción de Ventas - Vinícola</title>
+    <title>Predicción de Demanda Mensual - Vinícola</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            text-align: center;
-            padding: 50px;
-        }
-
-        h1 {
-            color: #800000;
-            margin-bottom: 40px;
-        }
-
-        form {
-            background-color: #ffffff;
-            display: inline-block;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            text-align: left;
-            width: 400px;
-        }
-
-        label {
-            font-weight: bold;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 8px;
-            margin: 8px 0 20px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        button {
-            background-color: #800000;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        button:hover {
-            background-color: #a00000;
-        }
-
-        .resultado {
-            margin-top: 30px;
-            font-size: 20px;
-            font-weight: bold;
-            color: green;
-        }
+        body { font-family: Arial; background-color: #f5f5f5; text-align: center; padding: 50px; }
+        h1 { color: #800000; }
+        form { background-color: white; display: inline-block; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        label { font-weight: bold; }
+        input, select { width: 100%; padding: 8px; margin: 8px 0 20px 0; border: 1px solid #ccc; border-radius: 4px; }
+        button { background-color: #800000; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background-color: #a00000; }
+        .resultado { margin-top: 30px; font-size: 20px; font-weight: bold; color: green; }
     </style>
 </head>
 <body>
-
-    <h1>Predicción de Ventas - Vinícola</h1>
-    
+    <h1>Predicción de Demanda Mensual - Vinícola</h1>
     <form method="POST" action="/predict">
-        <label>Precio Unitario:</label>
-        <input type="number" name="precio" step="0.01" required>
-
-        <label>Descuento (%):</label>
-        <input type="number" name="descuento" step="0.01" required>
-
-        <label>Stock Disponible:</label>
-        <input type="number" name="stock" required>
-
         <label>Mes (1-12):</label>
         <input type="number" name="mes" min="1" max="12" required>
 
-        <label>Método de Pago:</label>
-        <select name="metodo_pago" required>
-            <option value="Tarjeta">Tarjeta</option>
-            <option value="Transferencia">Transferencia</option>
-            <option value="Yape/Plin">Yape/Plin</option>
-        </select>
-
-        <label>Región:</label>
-        <select name="region" required>
-            <option value="Trujillo">Trujillo</option>
-            <option value="Lima">Lima</option>
-            <option value="Cusco">Cusco</option>
-            <option value="Piura">Piura</option>
-        </select>
-
-        <label>Día de la Semana:</label>
-        <select name="dia_semana" required>
-            <option value="Monday">Lunes</option>
-            <option value="Tuesday">Martes</option>
-            <option value="Wednesday">Miércoles</option>
-            <option value="Thursday">Jueves</option>
-            <option value="Saturday">Sábado</option>
-            <option value="Sunday">Domingo</option>
+        <label>Producto:</label>
+        <select name="producto" required>
+            <option value="Mistela">Mistela</option>
+            <option value="Vino Blanco Dulce">Vino Blanco Dulce</option>
+            <option value="Vino Blanco Seco">Vino Blanco Seco</option>
+            <option value="Vino Rosé">Vino Rosé</option>
+            <option value="Vino Tinto Dulce">Vino Tinto Dulce</option>
+            <option value="Vino Tinto Seco">Vino Tinto Seco</option>
+            <option value="Vino Tinto Semi-seco">Vino Tinto Semi-seco</option>
         </select>
 
         <label>Categoría:</label>
@@ -108,36 +37,19 @@
             <option value="Espumante">Espumante</option>
             <option value="Rosé">Rosé</option>
             <option value="Tinto">Tinto</option>
+            <option value="Blanco">Blanco</option>
         </select>
 
-        <label>Evento Especial:</label>
-        <select name="evento" required>
-            <option value="Día del Padre">Día del Padre</option>
-            <option value="Feria del Vino">Feria del Vino</option>
-            <option value="Fiestas Patrias">Fiestas Patrias</option>
-            <option value="Vendimia">Vendimia</option>
-        </select>
-
-        <label>Producto:</label>
-        <select name="producto" required>
-            <option value="Mistela">Mistela</option>
-            <option value="Vino Blanco Dulce">Vino Blanco Dulce</option>
-            <option value="Vino Blanco Seco">Vino Blanco Seco</option>
-            <option value="Vino Reservado">Vino Reservado</option>
-            <option value="Vino Rosé">Vino Rosé</option>
-            <option value="Vino Tinto Dulce">Vino Tinto Dulce</option>
-            <option value="Vino Tinto Seco">Vino Tinto Seco</option>
-            <option value="Vino Tinto Semi-seco">Vino Tinto Semi-seco</option>
-        </select>
+        <label>Precio Unitario:</label>
+        <input type="number" name="precio" step="0.01" required>
 
         <button type="submit">Predecir</button>
     </form>
 
     {% if prediccion %}
         <div class="resultado">
-            <h2>Predicción de cantidad vendida: {{ prediccion }}</h2>
+            <h2>Demanda estimada: {{ prediccion }} unidades</h2>
         </div>
     {% endif %}
-
 </body>
 </html>
