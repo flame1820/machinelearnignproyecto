@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Predicción de Demanda Mensual - Vinícola</title>
+    <style>
+        body { font-family: Arial; background-color: #f5f5f5; text-align: center; padding: 50px; }
+        h1 { color: #800000; }
+        form { background-color: white; display: inline-block; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        label { font-weight: bold; }
+        input, select { width: 100%; padding: 8px; margin: 8px 0 20px 0; border: 1px solid #ccc; border-radius: 4px; }
+        button { background-color: #800000; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background-color: #a00000; }
+        .resultado { margin-top: 30px; font-size: 20px; font-weight: bold; color: green; }
+    </style>
+</head>
+<body>
+    <h1>Predicción de Demanda Mensual - Vinícola</h1>
+    <form method="POST" action="/predict">
+        <label>Mes (1-12):</label>
+        <input type="number" name="mes" min="1" max="12" required>
+
+        <label>Producto:</label>
+        <select name="producto" required>
+            <option value="Mistela">Mistela</option>
+            <option value="Vino Blanco">Vino Blanco Dulce</option>
+            <option value="Vino Blanco">Vino Blanco Seco</option>
+            <option value="Vino Rosé">Vino Rosé</option>
+            <option value="Vino Tinto">Vino Tinto Dulce</option>
+            <option value="Vino Tinto">Vino Tinto Seco</option>
+            <option value="Vino Tinto">Vino Tinto Semi-seco</option>
+        </select>
+
+        <label>Categoría:</label>
+        <select name="categoria" required>
+            <option value="Dulce">Dulce</option>
+            <option value="Espumante">Espumante</option>
+            <option value="Rosé">Rosé</option>
+            <option value="Tinto">Tinto</option>
+            <option value="Blanco">Blanco</option>
+        </select>
+
+        <label>Precio Unitario:</label>
+        <input type="number" name="precio" step="0.01" required>
+
+        <button type="submit">Predecir</button>
+    </form>
+
+    {% if prediccion %}
+        <div class="resultado">
+            <h2>Demanda estimada: {{ prediccion }} unidades</h2>
+        </div>
+    {% endif %}
+</body>
+</html>
